@@ -1,0 +1,243 @@
+/* Social Media Sidebar - Fixed Right Side */
+
+.social-sidebar {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 9999;
+    animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateY(-50%) translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(-50%) translateX(0);
+        opacity: 1;
+    }
+}
+
+.social-link {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    color: #667eea;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        0 0 20px rgba(102, 126, 234, 0.2);
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effects */
+.social-link:hover {
+    transform: scale(1.15) translateX(-5px);
+    background: rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.3),
+        0 0 30px rgba(102, 126, 234, 0.4);
+}
+
+.social-link:hover svg {
+    transform: scale(1.1);
+}
+
+/* Individual Colors */
+.social-link:nth-child(1) {
+    /* Gmail - Default subtle red tint */
+    color: #EA4335;
+}
+
+.social-link:nth-child(1):hover {
+    /* Gmail - Bright Red */
+    color: #EA4335;
+    background: rgba(234, 67, 53, 0.15);
+    border-color: #EA4335;
+    box-shadow: 
+        0 8px 25px rgba(234, 67, 53, 0.4),
+        0 0 30px rgba(234, 67, 53, 0.5);
+}
+
+.social-link:nth-child(2):hover {
+    /* LinkedIn - Blue */
+    color: #0A66C2;
+    border-color: #0A66C2;
+    box-shadow: 
+        0 8px 25px rgba(10, 102, 194, 0.3),
+        0 0 30px rgba(10, 102, 194, 0.4);
+}
+
+.social-link:nth-child(3):hover {
+    /* GitHub - Purple/White */
+    color: #a78bfa;
+    border-color: #a78bfa;
+    box-shadow: 
+        0 8px 25px rgba(167, 139, 250, 0.3),
+        0 0 30px rgba(167, 139, 250, 0.4);
+}
+
+/* Tooltip */
+.social-tooltip {
+    position: absolute;
+    right: 65px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid rgba(0, 0, 0, 0.9);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+.social-link:hover .social-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Active/Click Effect */
+.social-link:active {
+    transform: scale(0.95) translateX(-5px);
+}
+
+/* Pulse Animation */
+@keyframes pulse-ring {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    opacity: 0;
+    animation: pulse-ring 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.social-link:hover::before {
+    animation: none;
+}
+
+/* Dark Mode */
+body.dark-mode .social-link {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(167, 139, 250, 0.4);
+    color: #a78bfa;
+}
+
+body.dark-mode .social-link:hover {
+    background: rgba(167, 139, 250, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .social-sidebar {
+        right: 15px;
+        gap: 15px;
+    }
+    
+    .social-link {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .social-link svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .social-tooltip {
+        display: none; /* Hide tooltips on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .social-sidebar {
+        right: 10px;
+        gap: 12px;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .social-link svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .social-sidebar {
+        right: 20px;
+    }
+}
+
+/* Smooth Scroll Behavior */
+.social-sidebar {
+    will-change: transform;
+}
+
+/* Accessibility */
+.social-link:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 4px;
+}
+
+.social-link:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Print - Hide on print */
+@media print {
+    .social-sidebar {
+        display: none;
+    }
+}
